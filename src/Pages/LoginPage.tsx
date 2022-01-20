@@ -9,8 +9,9 @@ const LoginPage: FC<Props> = (props) => {
     const [check, setCheck] = useState(false);
     const { handleSubmit, getFieldProps, touched, errors } = useFormik({
         initialValues: {
+            password:"",
             email: "",
-            password: "",
+            
            
         },
         validationSchema: yup.object().shape({
