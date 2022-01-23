@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { FC, memo } from "react";
 import * as yup from "yup";
 import { Link, useHistory } from "react-router-dom";
-import { ImSpinner10 } from "react-icons/im";
+import { ImSpinner3 } from "react-icons/im";
 
 interface Props {
 }
@@ -82,7 +82,7 @@ const SignupPage: FC<Props> = (props) => {
                             </div>
                             
                             <Link to="#" className="inline-block text-center text-xs underline pt-1 pb-2">Already have an account? <span className=" text-blue-500"><Link to={"/login"}> Login here </Link> </span></Link>
-                            {isSubmitting ? <ImSpinner10 className="animate-spin mx-auto  "></ImSpinner10>:<div className=" h-2"></div>} 
+                            {isSubmitting ? <ImSpinner3 className="animate-spin mx-auto  "></ImSpinner3>:<div className=" h-2"></div>} 
                         </div>
                     </form>
                     <div className="flex justify-center text-gray-500 text-sm">

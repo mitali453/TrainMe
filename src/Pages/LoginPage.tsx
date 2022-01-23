@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { FC, memo } from "react";
 import * as yup from "yup";
 import { Link, useHistory } from "react-router-dom";
-import {ImSpinner10} from "react-icons/im";
+import { ImSpinner3} from "react-icons/im";
 
 interface Props {
 }
@@ -73,7 +73,7 @@ const LoginPage: FC<Props> = (props) => {
                                 <button type="submit" className="bg-blue-500 text-white font-bold px-2 sm:px-5 py-2 rounded focus:outline-none shadow hover:bg-blue-700 transition-colors">Log In</button>
                             </div>
                             <div className="flex justify-between">
-                            {isSubmitting ? <ImSpinner10 className="animate-spin"></ImSpinner10>:<div className=" h-2"></div>}
+                            {isSubmitting ? <ImSpinner3 className="animate-spin"></ImSpinner3>:<div className=" h-2"></div>}
                             <Link className="text-xs underline text-right pt-2 " to="/signup">If not! <span className="text-blue-500">Create Account</span> </Link>
                             </div>
                         </div>
