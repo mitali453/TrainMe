@@ -1,13 +1,15 @@
 import { useFormik } from "formik";
-import { FC, memo, useState } from "react";
+import { FC, memo } from "react";
 import * as yup from "yup";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import {ImSpinner10} from "react-icons/im";
 
 interface Props {
 }
 const LoginPage: FC<Props> = (props) => {
-    const [check, setCheck] = useState(false);
-    const { handleSubmit, getFieldProps, touched, errors } = useFormik({
+    const history= useHistory();
+    // const [check, setCheck] = useState(false);
+    const { handleSubmit, getFieldProps, touched, errors,isSubmitting } = useFormik({
         initialValues: {
             password:"",
             email: "",
@@ -16,11 +18,15 @@ const LoginPage: FC<Props> = (props) => {
         },
         validationSchema: yup.object().shape({
             
-            email: yup.string().required("This field is required").matches(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-z]+)$/, "Enter a valid email").email(() => "Enter a valid email"),
+            email: yup.string().required("This field is required").matches(/^([a-zA-Z0-9_\-.]+)@([a-zA-Z0-9_\-.]+)\.([a-zA-z]+)$/, "Enter a valid email").email(() => "Enter a valid email"),
             password: yup.string().required("This field is required").min(8, ({ min }) => `Atleast ${min} characters`)
         }),
-        onSubmit: () => {
-            console.log("helllo");
+        onSubmit: (data,{setSubmitting}) => {
+
+            console.log("data is : ",data);
+            setTimeout(()=>{
+                history.push("/dashboard");
+            },3000)
 
         },
     })
@@ -42,7 +48,7 @@ const LoginPage: FC<Props> = (props) => {
                                     {...getFieldProps("email")}
                                 />
                             </div>
-                            <div className="py-3 text-xs">     {touched.email && <span className=" text-red-500 text-xs ">{errors.email}</span>}</div>
+                            <div className="h-6 text-xs">     {touched.email && <span className=" text-red-500 text-xs ">{errors.email}</span>}</div>
 
                             <div className="flex flex-col ">
                                 <input
@@ -55,7 +61,7 @@ const LoginPage: FC<Props> = (props) => {
 
                                 />
                             </div>
-                            <div className="py-3">{touched.password && <div className=" text-red-500 text-xs ">{errors.password}</div>}</div>
+                            <div className="h-6 text-xs">{touched.password && <div className=" text-red-500 text-xs ">{errors.password}</div>}</div>
 
                             {/* <div className="relative">
                                 <input type="checkbox" onClick={() => { setCheck(!check) }} name="remember" id="remember" className="inline-block align-middle" />
@@ -66,7 +72,10 @@ const LoginPage: FC<Props> = (props) => {
                                 <Link to="#" className="inline-block text-sm sm:text-base text-blue-500 hover:text-blue-700 hover:underline">Forgot your password?</Link>
                                 <button type="submit" className="bg-blue-500 text-white font-bold px-2 sm:px-5 py-2 rounded focus:outline-none shadow hover:bg-blue-700 transition-colors">Log In</button>
                             </div>
-                            <Link className="text-xs underline text-right pt-2" to="/signup">If not! <span className="text-blue-500">Create Account</span> </Link>
+                            <div className="flex justify-between">
+                            {isSubmitting ? <ImSpinner10 className="animate-spin"></ImSpinner10>:<div className=" h-2"></div>}
+                            <Link className="text-xs underline text-right pt-2 " to="/signup">If not! <span className="text-blue-500">Create Account</span> </Link>
+                            </div>
                         </div>
 
                     </form>
