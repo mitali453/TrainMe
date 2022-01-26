@@ -9,6 +9,7 @@ const AppContainerPage: FC<Props> = (props) =>{
 return (
  <div className=" flex flex-row justify-between">
      <Switch>
+     <Sidebar></Sidebar>
      <Route path="/dashboard" exact>
           <DashboardPage></DashboardPage>
         </Route>
@@ -16,12 +17,6 @@ return (
           <RecordingsPage></RecordingsPage>
         </Route>
      </Switch>
-     <Sidebar></Sidebar>
-
-
-
-
-
  </div>
 );
 };
