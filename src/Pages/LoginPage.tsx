@@ -3,6 +3,7 @@ import { FC, memo } from "react";
 import * as yup from "yup";
 import { Link, useHistory } from "react-router-dom";
 import { ImSpinner3} from "react-icons/im";
+import { login } from "../api";
 
 interface Props {
 }
@@ -23,10 +24,15 @@ const LoginPage: FC<Props> = (props) => {
         }),
         onSubmit: (data,{setSubmitting}) => {
 
-            console.log("data is : ",data);
-            setTimeout(()=>{
+           login(data).then(()=>{
+                setTimeout(()=>{
                 history.push("/dashboard");
-            },3000)
+                },3000)
+    
+           });
+            // setTimeout(()=>{
+            //     history.push("/dashboard");
+            // },3000)
 
         },
     })

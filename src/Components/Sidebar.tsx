@@ -1,4 +1,6 @@
 import {FC, memo, useEffect} from "react";
+import { useHistory } from "react-router-dom";
+import { logout } from "../api";
 interface Props{
 }
 const Sidebar: FC<Props> = (props) =>{
@@ -6,9 +8,17 @@ const Sidebar: FC<Props> = (props) =>{
 
     useEffect(()=>{
         console.log("Sidebar rendering first time");
-    },[]);    
+    },[]);  
+    
+    const history= useHistory();
 return (
- <div className=" h-screen bg-gray-400 w-80">This is Sidebar
+ <div className=" h-screen bg-gray-400 w-80"> 
+ <button onClick={()=>{
+     logout();
+     history.push("/login");
+ }
+
+ }>  LOGOUT</button>
  </div>
 );
 };
