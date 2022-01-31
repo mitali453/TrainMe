@@ -28,6 +28,7 @@ export const login=(data:LoginData)=>{
     console.log(data);
     return axios.post(url,data).then((response)=>{
     console.log("token:  "+response.data.token);
+    console.log(response.data.data)
     localStorage.setItem(LS_LOGIN_TOKEN,response.data.token);
     return response.data.user;
 });
@@ -37,12 +38,12 @@ interface GroupRequest{
     limit?:number;
     offset?:number;
     query?:string;
-    status: "all-groups";
+    status: "all-groups" | "xyz";
 }
 
 export const fetchGroups=(data : GroupRequest)=>{
     const url=BASE_URL +"/groups";
     axios.get(url, {params:data })
-    .then((response)=>console.log(response))
+    .then((response)=>console.log(response.data))
     .catch((e)=>console.log(e));
 }

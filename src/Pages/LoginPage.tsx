@@ -30,10 +30,6 @@ const LoginPage: FC<Props> = (props) => {
                 },3000)
     
            });
-            // setTimeout(()=>{
-            //     history.push("/dashboard");
-            // },3000)
-
         },
     })
     return (
