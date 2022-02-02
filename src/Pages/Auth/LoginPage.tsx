@@ -3,7 +3,8 @@ import { FC, memo } from "react";
 import * as yup from "yup";
 import { Link, useHistory } from "react-router-dom";
 import { ImSpinner3} from "react-icons/im";
-import { login } from "../api";
+import { login } from "../../api/auth";
+
 
 interface Props {
 }
@@ -14,21 +15,16 @@ const LoginPage: FC<Props> = (props) => {
         initialValues: {
             password:"",
             email: "",
-            
-           
         },
         validationSchema: yup.object().shape({
-            
             email: yup.string().required("This field is required").matches(/^([a-zA-Z0-9_\-.]+)@([a-zA-Z0-9_\-.]+)\.([a-zA-z]+)$/, "Enter a valid email").email(() => "Enter a valid email"),
             password: yup.string().required("This field is required").min(8, ({ min }) => `Atleast ${min} characters`)
         }),
         onSubmit: (data,{setSubmitting}) => {
-
            login(data).then(()=>{
                 setTimeout(()=>{
                 history.push("/dashboard");
                 },3000)
-    
            });
         },
     })

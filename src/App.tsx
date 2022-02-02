@@ -1,28 +1,28 @@
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
-import { LS_LOGIN_TOKEN } from './api';
-import AppContainerPage from './Pages/AppContainerPage';
-import AuthPage from './Pages/AuthPage';
-import NotFoundPage from './Pages/NotFoundPage';
+import { LS_AUTH_TOKEN } from './api/base';
+import AppContainerPage from './pages/AppContainer/AppContainerPage';
+import AuthPage from './pages/Auth/AuthPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 
 function App() {
-  const token=localStorage.getItem(LS_LOGIN_TOKEN);
+  const token = localStorage.getItem(LS_AUTH_TOKEN);
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/" exact >
-          {token ? <Redirect to="/dashboard"/> : <Redirect to="/login"/> }
+          {token ? <Redirect to="/dashboard" /> : <Redirect to="/login" />}
         </Route>
-        <Route path={["/login","/signup"]}>
-          <AuthPage></AuthPage>
+        <Route path={["/login", "/signup"]}>
+          {token ? <Redirect to="/dashboard" /> : <AuthPage />}
         </Route>
-        <Route path={["/dashboard" , "/recordings"]}>
-          <AppContainerPage></AppContainerPage>
+        <Route path={["/dashboard", "/recordings"]}>
+          {token ? <AppContainerPage/>: <Redirect to="/login"/>}
         </Route>
         <Route>
           <NotFoundPage></NotFoundPage>
         </Route>
-        
+
       </Switch>
     </BrowserRouter>
   );

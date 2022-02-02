@@ -1,8 +1,9 @@
 import { FC, memo } from "react";
 import { Route, Switch } from "react-router-dom";
-import Sidebar from "../Components/Sidebar";
+import Sidebar from "../../components/Sidebar";
 import DashboardPage from "./DashboardPage";
 import RecordingsPage from "./RecordingsPage";
+
 interface Props {
 }
 const AppContainerPage: FC<Props> = (props) => {

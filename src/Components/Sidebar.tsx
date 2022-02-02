@@ -1,6 +1,7 @@
 import {FC, memo, useEffect} from "react";
 import { useHistory } from "react-router-dom";
-import { logout } from "../api";
+import { logout } from "../api/auth";
+
 interface Props{
 }
 const Sidebar: FC<Props> = (props) =>{
