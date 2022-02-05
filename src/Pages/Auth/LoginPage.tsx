@@ -4,9 +4,11 @@ import * as yup from "yup";
 import { Link, useHistory } from "react-router-dom";
 import { ImSpinner3} from "react-icons/im";
 import { login } from "../../api/auth";
+import { User } from "../../models/User";
 
 
 interface Props {
+    onLogin:(user:User)=>void;
 }
 const LoginPage: FC<Props> = (props) => {
     const history= useHistory();
@@ -21,7 +23,8 @@ const LoginPage: FC<Props> = (props) => {
             password: yup.string().required("This field is required").min(8, ({ min }) => `Atleast ${min} characters`)
         }),
         onSubmit: (data,{setSubmitting}) => {
-           login(data).then(()=>{
+           login(data).then((u)=>{
+               props.onLogin(u);
                 setTimeout(()=>{
                 history.push("/dashboard");
                 },3000)
