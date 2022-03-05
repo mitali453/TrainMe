@@ -1,30 +1,33 @@
 import { useFormik } from "formik";
-import { FC, memo } from "react";
+import { FC, memo, useContext } from "react";
 import * as yup from "yup";
 import { Link, useHistory } from "react-router-dom";
 import { ImSpinner3} from "react-icons/im";
 import { login } from "../../api/auth";
 import { User } from "../../models/User";
+import AppContext from "../../AppContext";
 
 
 interface Props {
-    onLogin:(user:User)=>void;
+    
 }
 const LoginPage: FC<Props> = (props) => {
     const history= useHistory();
+    const {setUser} = useContext(AppContext);
     // const [check, setCheck] = useState(false);
-    const { handleSubmit, getFieldProps, touched, errors,isSubmitting } = useFormik({
+    const { handleSubmit, getFieldProps, touched, errors,isSubmitting , isValid } = useFormik({
         initialValues: {
             password:"",
             email: "",
         },
+        isInitialValid:false,
         validationSchema: yup.object().shape({
             email: yup.string().required("This field is required").matches(/^([a-zA-Z0-9_\-.]+)@([a-zA-Z0-9_\-.]+)\.([a-zA-z]+)$/, "Enter a valid email").email(() => "Enter a valid email"),
             password: yup.string().required("This field is required").min(8, ({ min }) => `Atleast ${min} characters`)
         }),
         onSubmit: (data,{setSubmitting}) => {
            login(data).then((u)=>{
-               props.onLogin(u);
+                setUser(u);
                 setTimeout(()=>{
                 history.push("/dashboard");
                 },3000)
@@ -71,7 +74,7 @@ const LoginPage: FC<Props> = (props) => {
 
                             <div className="flex justify-between sm:flex-row sm:justify-between items-center ">
                                 <Link to="#" className="inline-block text-sm sm:text-base text-blue-500 hover:text-blue-700 hover:underline">Forgot your password?</Link>
-                                <button type="submit" className="bg-blue-500 text-white font-bold px-2 sm:px-5 py-2 rounded focus:outline-none shadow hover:bg-blue-700 transition-colors">Log In</button>
+                                <button disabled={!isValid} type="submit" className="bg-blue-500 text-white font-bold px-2 sm:px-5 py-2 rounded focus:outline-none shadow hover:bg-blue-700 transition-colors">Log In</button>
                             </div>
                             <div className="flex justify-between">
                             {isSubmitting ? <ImSpinner3 className="animate-spin"></ImSpinner3>:<div className=" h-2"></div>}
