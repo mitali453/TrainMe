@@ -1,4 +1,4 @@
-import axios, { Axios } from "axios";
+import axios from "axios";
 import { User } from "../models/User";
 import { BASE_URL, LS_AUTH_TOKEN } from "./base";
 

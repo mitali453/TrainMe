@@ -1,13 +1,13 @@
-import { FC, memo, useContext, useEffect } from "react";
+import { FC, memo, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { logout } from "../api/auth";
-import AppContext from "../AppContext";
+import { useAppSelector } from "../store";
 
 interface Props {
 }
 const Sidebar: FC<Props> = (props) => {
     console.log("Sidebar rendering");
-    const {user}= useContext(AppContext)
+    const user=useAppSelector((state)=> state.me);
 
     useEffect(() => {
         console.log("Sidebar rendering first time");

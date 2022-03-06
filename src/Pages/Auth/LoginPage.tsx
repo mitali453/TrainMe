@@ -1,11 +1,11 @@
 import { useFormik } from "formik";
-import { FC, memo, useContext } from "react";
+import { FC, memo } from "react";
 import * as yup from "yup";
 import { Link, useHistory } from "react-router-dom";
 import { ImSpinner3} from "react-icons/im";
 import { login } from "../../api/auth";
-import { User } from "../../models/User";
-import AppContext from "../../AppContext";
+import { meLoginAction } from "../../store";
+import { useDispatch } from "react-redux";
 
 
 interface Props {
@@ -13,7 +13,7 @@ interface Props {
 }
 const LoginPage: FC<Props> = (props) => {
     const history= useHistory();
-    const {setUser} = useContext(AppContext);
+    const dispatch= useDispatch();
     // const [check, setCheck] = useState(false);
     const { handleSubmit, getFieldProps, touched, errors,isSubmitting , isValid } = useFormik({
         initialValues: {
@@ -27,7 +27,7 @@ const LoginPage: FC<Props> = (props) => {
         }),
         onSubmit: (data,{setSubmitting}) => {
            login(data).then((u)=>{
-                setUser(u);
+                dispatch(meLoginAction(u));
                 setTimeout(()=>{
                 history.push("/dashboard");
                 },3000)
